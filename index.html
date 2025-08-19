@@ -1,188 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quarterly Earnings — Interactive Report</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quarterly Earnings Report</title>
 
-    <!-- RevealJS core + theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css" />
-    <link id="theme" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" />
+  <!-- RevealJS core + theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" />
 
-    <!-- Code highlighting theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css" />
+  <!-- Syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
 
-    <style>
-      /* Custom polish */
-      .reveal h1, .reveal h2, .reveal h3 { letter-spacing: 0.3px; }
-      .tagline { font-size: 0.7em; opacity: 0.8; }
-      .kpi-grid {
-        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 18px;
-      }
-      .kpi { padding: 18px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.07); }
-      .kpi small { display:block; opacity:.7 }
-      .chart { width: 100%; height: 420px; border-radius: 12px; }
-      /* Responsive base font size for large rooms */
-      :root { --r-main-font-size: calc(0.8vw + 0.8vh + 0.6vmin); }
-    </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
+      <!-- Title slide -->
+      <section>
+        <h1>Quarterly Earnings Report</h1>
+        <p><strong>Prepared by:</strong> Technical Consultant</p>
+        <p><strong>Contact:</strong> 24f1002079@ds.study.iitm.ac.in</p>
+        <aside class="notes">Welcome stakeholders. This report highlights quarterly performance and key insights.</aside>
+      </section>
 
-        <!-- TITLE / COVER -->
-        <section>
-          <h1>Quarterly Earnings — Interactive Report</h1>
-          <p class="tagline">Modern presentation capabilities with RevealJS</p>
-          <p><strong>Prepared by:</strong> Technical Consulting — Financial Analytics</p>
-          <p><strong>Contact:</strong> 24f1002079@ds.study.iitm.ac.in</p>
-          <aside class="notes">
-            Welcome stakeholders. Today we’ll walk through top-line results, drivers, and outlook. Use keyboard ? to view shortcuts; press S to open presenter notes.
-          </aside>
-        </section>
+      <!-- Markdown slide -->
+      <section data-markdown>
+        <textarea data-template>
+## Agenda (Markdown)
 
-        <!-- MARKDOWN SLIDE (Requirement: at least one slide via Markdown) -->
-        <section data-markdown>
-          <textarea data-template>
-### Agenda (Markdown)
+- Performance Overview  
+- Revenue Drivers  
+- Expense Trends  
+- Capital & Risk  
+- Outlook  
 
-- **Performance overview** _(QoQ & YoY)_
-- **Revenue drivers** — product mix & pricing
-- **Expense trends** — operating leverage
-- **Capital & risk** — CET1, liquidity
-- **Outlook** — guidance & sensitivities
+Notes: This slide was authored in Markdown.
+        </textarea>
+      </section>
 
-Notes:
-- This slide is authored in **Markdown**.
-- Use left/right arrows to navigate.
-          </textarea>
-        </section>
+      <!-- Fragments -->
+      <section>
+        <h2>Highlights</h2>
+        <ul>
+          <li class="fragment">Revenue growth +8% QoQ</li>
+          <li class="fragment">EPS beats consensus</li>
+          <li class="fragment">Operating margin expansion</li>
+        </ul>
+        <aside class="notes">Use fragments to reveal KPIs step by step.</aside>
+      </section>
 
-        <!-- KPI HIGHLIGHTS with FRAGMENTS (animated reveal) -->
-        <section>
-          <h2>Highlights</h2>
-          <div class="kpi-grid">
-            <div class="kpi fragment">
-              <small>Revenue</small>
-              <h3>$4.2B</h3>
-              <p class="tagline">+8% QoQ · +12% YoY</p>
-            </div>
-            <div class="kpi fragment fade-up">
-              <small>EPS (dil.)</small>
-              <h3>$1.35</h3>
-              <p class="tagline">Beats consensus by $0.07</p>
-            </div>
-            <div class="kpi fragment fade-in-then-semi-out">
-              <small>Operating Margin</small>
-              <h3>24.6%</h3>
-              <p class="tagline">+140 bps QoQ</p>
-            </div>
-          </div>
-          <aside class="notes">Introduce headline results with fragments to pace the story. Pause after each KPI for context.</aside>
-        </section>
-
-        <!-- CODE SAMPLE with syntax highlighting and animated line focus -->
-        <section>
-          <h2>Reproducible Metrics (Code)</h2>
-<pre><code class="language-python" data-line-numbers="1-4|6-9|11-16">
+      <!-- Code with syntax highlighting -->
+      <section>
+        <h2>Reproducible Metrics</h2>
+<pre><code class="language-python" data-line-numbers="1-3|5-7|9-12">
 import pandas as pd
-from pathlib import Path
 
-# Load quarterly results
-q = pd.read_csv(Path('data/quarterly.csv'))
+# Load data
+df = pd.read_csv("quarterly.csv")
 
-# Compute YoY and QoQ deltas
-q['rev_qoq'] = q['revenue'].pct_change()
-q['rev_yoy'] = q['revenue'].pct_change(4)
+# Calculate growth
+df["rev_qoq"] = df["revenue"].pct_change()
+df["rev_yoy"] = df["revenue"].pct_change(4)
 
-# Screen for beats vs. consensus
-beats = q[q['eps_actual'] > q['eps_consensus']]
-print('Beat quarters:', beats['quarter'].tolist())
+print(df.tail())
 </code></pre>
-          <aside class="notes">Highlight how analysis can be reproduced. Arrow keys will focus line ranges per the data-line-numbers attribute.</aside>
-        </section>
+        <aside class="notes">Highlight code in steps using data-line-numbers.</aside>
+      </section>
 
-        <!-- MATH (financial formulas) -->
-        <section>
-          <h2>Financial Formulas</h2>
-          <p>Net Present Value (discrete cash flows):</p>
-          <p>\[ \mathrm{NPV} = \sum_{t=1}^{T} \frac{CF_t}{(1 + r)^t} - I_0 \]</p>
-          <p>Dividend Discount (Gordon Growth):</p>
-          <p>\[ P_0 = \frac{D_1}{r - g} \quad \text{for } r > g \]</p>
-          <aside class="notes">Use formulas to justify valuation context behind guidance and sensitivity analysis.</aside>
-        </section>
+      <!-- Math -->
+      <section>
+        <h2>Financial Formula</h2>
+        <p>Net Present Value:</p>
+        <p>\[ NPV = \sum_{t=1}^{T} \frac{CF_t}{(1+r)^t} - I_0 \]</p>
+        <aside class="notes">Explain financial formulas using MathJax integration.</aside>
+      </section>
 
-        <!-- LIVE DEMO (lazy iframe) -->
-        <section>
-          <h2>Interactive Demo (Optional)</h2>
-          <iframe data-src="https://observablehq.com/@observablehq/plot-quick-start" data-preload style="width:100%;height:480px;border:0;border-radius:12px"></iframe>
-          <aside class="notes">This embeds an external interactive page. Use data-src so it lazy-loads when the slide is reached.</aside>
-        </section>
+      <!-- Closing -->
+      <section>
+        <h2>Thank You</h2>
+        <p>Questions? Contact me at <strong>24f1002079@ds.study.iitm.ac.in</strong></p>
+        <p><em>Press <kbd>S</kbd> for speaker notes during the presentation.</em></p>
+      </section>
 
-        <!-- DATA FLOW with STACKED FRAGMENTS -->
-        <section>
-          <h2>Data Flow</h2>
-          <div class="r-stack">
-            <div class="fragment">Extract → Transform → Validate</div>
-            <div class="fragment">Aggregate → Model → Visualize</div>
-            <div class="fragment">Report → Review → Publish</div>
-          </div>
-          <aside class="notes">Each fragment steps through our workflow without overwhelming the audience.</aside>
-        </section>
-
-        <!-- SPEAKER NOTES EXAMPLE -->
-        <section>
-          <h2>Guidance & Sensitivities</h2>
-          <ul>
-            <li class="fragment">Revenue growth: 6–8% FY guidance</li>
-            <li class="fragment">Opex discipline: flat to +2%</li>
-            <li class="fragment">Macro sensitivity: ±50 bps on NIM</li>
-          </ul>
-          <aside class="notes">
-            Emphasize prudent assumptions. If asked about scenario analysis, reference the sensitivity to rate moves and loan loss provisions.
-          </aside>
-        </section>
-
-        <!-- CONTACT / CLOSE -->
-        <section>
-          <h2>Thank You</h2>
-          <p>Questions? Reach me at <strong>24f1002079@ds.study.iitm.ac.in</strong></p>
-          <p class="tagline">Press <kbd>S</kbd> for speaker notes while presenting.</p>
-        </section>
-
-      </div>
     </div>
+  </div>
 
-    <!-- RevealJS core + plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.js"></script>
+  <!-- RevealJS scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/math/math.js"></script>
 
-    <script>
-      // Initialize deck
-      Reveal.initialize({
-        width: 1280,
-        height: 720,
-        margin: 0.06,
-        controls: true,
-        progress: true,
-        history: true,
-        hash: true,
-        transition: 'slide',
-        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
-        // Math configuration (KaTeX)
-        katex: {
-          version: '0.16.9',
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false },
-            { left: '\\(', right: '\\)', display: false },
-            { left: '\\[', right: '\\]', display: true }
-          ]
-        }
-      });
-    </script>
-  </body>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
+      katex: {
+        version: '0.16.9',
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ]
+      }
+    });
+  </script>
+</body>
 </html>
